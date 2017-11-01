@@ -8,11 +8,7 @@ import {
 } from 'react-native'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import DismissKeyboard from 'dismissKeyboard'
-import Logo from '../components/Home/Logo'
-import TextInputWithButton from '../components/Home/TextInputWithButton'
-import ClearButton from '../components/Home/ClearButton'
-import LastConvertedText from '../components/Home/LastConvertedText'
-import Header from '../components/Home/Header'
+import { Logo, TextInputWithButton, ClearButton, LastConvertedText, Header } from '../components/Home'
 
 const TEMP_BASE_CURRENCY = 'USD'
 const TEMP_QUOTE_CURRENCY = 'EUR'
@@ -82,6 +78,7 @@ export default class Home extends Component {
 const styles = EStyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: '$blue',
 		justifyContent: 'center',
 		alignItems: 'center',
 		left: 0,

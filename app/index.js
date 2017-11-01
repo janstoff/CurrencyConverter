@@ -4,6 +4,7 @@ import { Constants } from 'expo'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import { blue } from './assets/colors'
 import Home from './screens/Home'
+import CurrencyList from './screens/CurrencyList'
 
 function CustomStatusBar({ backgroundColor, ...props }) {
 	return (
@@ -21,7 +22,7 @@ export default class App extends React.Component {
 					backgroundColor={blue}
 					barStyle="light-content"
 				/>
-				<Home />
+				<CurrencyList />
 			</View>
 		)
 	}
@@ -39,6 +40,7 @@ EStyleSheet.build({
 	$lightBlue: '#8697b8',
 	$pink: '#b93fb3',
 	$textColor: '#ffffff',
+	$darkText: '#343434',
 
 	//$outline: 1,
 })
@@ -46,6 +48,5 @@ EStyleSheet.build({
 const styles = EStyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '$blue'
 	}
 })
