@@ -2,7 +2,7 @@
 export const gray = '#757575'
 export const lightGray = '#ded7d7'
 export const veryLightGray = '#f4eded'
-export const white = 'rgb(255, 255, 255)'
+export const white = '#ffffff'
 export const black = '#000000'
 export const orange = '#f26f28'
 export const lightOrange = '#ffc2a1'

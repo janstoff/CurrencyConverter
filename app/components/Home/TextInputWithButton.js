@@ -8,7 +8,8 @@ import {
 	Dimensions
 } from 'react-native'
 import PropTypes from 'prop-types'
-import { white, gray, lightGray, veryLightGray } from '../../assets/colors'
+import EStyleSheet from 'react-native-extended-stylesheet'
+import color from 'color'
 
 class TextInputWithButton extends Component {
 	static propTypes = {
@@ -23,6 +24,10 @@ class TextInputWithButton extends Component {
 	render() {
 		const { onPress, buttonText, editable } = this.props
 
+		const underlayColor = color(styles.$buttonBGColorBase).darken(
+			styles.$buttonBGColorModifier
+		)
+
 		const dynamicContainerStyles = [styles.container] //[] for array of multiple style props
 		if (editable === false) {
 			dynamicContainerStyles.push(styles.containerDisabled)
@@ -31,10 +36,9 @@ class TextInputWithButton extends Component {
 		return (
 			<View style={dynamicContainerStyles}>
 				<TouchableHighlight
-          style={styles.buttonContainer}
-          onPress={onPress}
-          underlayColor={veryLightGray}
-        >
+					style={styles.buttonContainer}
+					onPress={onPress}
+					underlayColor={underlayColor}>
 					<Text style={styles.buttonText}>{buttonText}</Text>
 				</TouchableHighlight>
 				<View style={styles.border} />
@@ -52,9 +56,12 @@ SCREEN_WIDTH = Dimensions.get('window').width
 INPUT_HEIGHT = 48
 BORDER_RADIUS = 4
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
+	$buttonBGColorBase: '$white',
+	$buttonBGColorModifier: 0.1,
+
 	container: {
-		backgroundColor: white,
+		backgroundColor: '$white',
 		flexDirection: 'row',
 		alignItems: 'center',
 		marginVertical: 11,
@@ -63,18 +70,18 @@ const styles = StyleSheet.create({
 		borderRadius: BORDER_RADIUS
 	},
 	containerDisabled: {
-		backgroundColor: veryLightGray
+		backgroundColor: '$veryLightGray'
 	},
 	buttonContainer: {
 		height: INPUT_HEIGHT,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: white,
+		backgroundColor: '$white',
 		borderTopLeftRadius: BORDER_RADIUS,
 		borderBottomLeftRadius: BORDER_RADIUS
 	},
 	buttonText: {
-		color: gray,
+		color: '$gray',
 		fontSize: 20,
 		fontWeight: '600',
 		paddingHorizontal: 16
@@ -82,16 +89,16 @@ const styles = StyleSheet.create({
 	border: {
 		height: INPUT_HEIGHT,
 		width: StyleSheet.hairlineWidth,
-		backgroundColor: lightGray
+		backgroundColor: '$lightGray'
 	},
 	input: {
 		flex: 1,
 		fontSize: 18,
 		paddingHorizontal: 8,
-		color: gray
+		color: '$gray'
 	},
 	text: {
-		color: 'white'
+		color: '$textColor'
 	}
 })
 

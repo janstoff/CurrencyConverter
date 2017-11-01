@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native'
 import PropTypes from 'prop-types'
+import EStyleSheet from 'react-native-extended-stylesheet'
+
 import { white, gray, lightGray, veryLightGray } from '../../assets/colors'
 
 SCREEN_WIDTH = Dimensions.get('window').width
@@ -27,7 +29,7 @@ export default class ClearButton extends Component {
 }
 
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
 	container: {
 		alignItems: 'center',
 		marginVertical: 11,
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
 		height: SCREEN_WIDTH / 14
   },
 	buttonText: {
-		color: white,
+		color: '$textColor',
 		fontSize: 14,
 		fontWeight: '200',
 		paddingHorizontal: 16

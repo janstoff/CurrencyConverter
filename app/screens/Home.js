@@ -6,11 +6,13 @@ import {
 	TouchableWithoutFeedback,
 	KeyboardAvoidingView
 } from 'react-native'
+import EStyleSheet from 'react-native-extended-stylesheet'
 import DismissKeyboard from 'dismissKeyboard'
 import Logo from '../components/Home/Logo'
 import TextInputWithButton from '../components/Home/TextInputWithButton'
 import ClearButton from '../components/Home/ClearButton'
 import LastConvertedText from '../components/Home/LastConvertedText'
+import Header from '../components/Home/Header'
 
 const TEMP_BASE_CURRENCY = 'USD'
 const TEMP_QUOTE_CURRENCY = 'EUR'
@@ -36,49 +38,56 @@ export default class Home extends Component {
 		console.log('currency swapped')
 	}
 
+	onOptionsPress() {
+		console.log('options pressed')
+	}
+
 	render() {
 		return (
-			<TouchableWithoutFeedback
-				onPress={() => {
-					DismissKeyboard()
-				}}>
+			<TouchableWithoutFeedback onPress={() => DismissKeyboard()}>
 				<View style={styles.container}>
-					<Logo />
-					<TextInputWithButton
-						buttonText={TEMP_BASE_CURRENCY}
-						onPress={() => this.onPressBaseCurrency()}
-						defaultValue={TEMP_BASE_VALUE}
-						keyboardType="numeric"
-						onChange={text => this.onTextInput(text)}
-					/>
-					<TextInputWithButton
-						buttonText={TEMP_QUOTE_CURRENCY}
-						onPress={() => this.onPressQuoteCurrency()}
-						editable={false}
-						value={TEMP_QUOTE_VALUE}
-					/>
-					<LastConvertedText
-						base={TEMP_BASE_CURRENCY}
-						date={TEMP_CONVERSION_DATE}
-						quote={TEMP_QUOTE_CURRENCY}
-						conversionRate={TEMP_CONVERSION_RATE}
-					/>
-					<ClearButton
-						text="Reverse Currencies"
-						onPress={() => this.onCurrencySwap()}
-					/>
+					<Header onPress={() => onOptionsPress()} />
+					<KeyboardAvoidingView behavior="padding">
+						<Logo />
+						<TextInputWithButton
+							buttonText={TEMP_BASE_CURRENCY}
+							onPress={() => this.onPressBaseCurrency()}
+							defaultValue={TEMP_BASE_VALUE}
+							keyboardType="numeric"
+							onChange={text => this.onTextInput(text)}
+						/>
+						<TextInputWithButton
+							buttonText={TEMP_QUOTE_CURRENCY}
+							onPress={() => this.onPressQuoteCurrency()}
+							editable={false}
+							value={TEMP_QUOTE_VALUE}
+						/>
+						<LastConvertedText
+							base={TEMP_BASE_CURRENCY}
+							date={TEMP_CONVERSION_DATE}
+							quote={TEMP_QUOTE_CURRENCY}
+							conversionRate={TEMP_CONVERSION_RATE}
+						/>
+						<ClearButton
+							text="Reverse Currencies"
+							onPress={() => this.onCurrencySwap()}
+						/>
+					</KeyboardAvoidingView>
 				</View>
 			</TouchableWithoutFeedback>
 		)
 	}
 }
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
 	container: {
+		flex: 1,
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
+		left: 0,
+		right: 0
 	},
 	text: {
-		color: 'white'
+		color: '$textColor'
 	}
 })
