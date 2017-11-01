@@ -3,7 +3,7 @@ import { Text, View, FlatList, Dimensions } from 'react-native'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import PropTypes from 'prop-types'
 
-import { ListItem, Separator, Icon } from '../components/CurrencyList'
+import { ListItem, Separator, TickIcon } from '../components/_SharedComponents'
 import currencies from '../assets/currencies'
 
 SCREEN_WIDTH = Dimensions.get('window').width
@@ -11,8 +11,6 @@ SCREEN_WIDTH = Dimensions.get('window').width
 const TEMP_CURRENT_CURRENCY = 'CAD'
 
 export default class CurrencyList extends Component {
-	static propTypes = {}
-
 	onPress = () => {
 		console.log('row pressed')
 	}

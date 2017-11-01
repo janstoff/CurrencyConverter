@@ -3,10 +3,13 @@ import { View, Image } from 'react-native'
 import PropTypes from 'prop-types'
 import EStyleSheet from 'react-native-extended-stylesheet'
 
-const Icon = ({ checkmark, visible }) => {
+const Icon = ({ checkmark, visible, iconBackground }) => {
 	const iconStyles = [styles.icon]
 	if (visible) {
 		iconStyles.push(styles.iconVisible)
+	}
+	if(iconBackground) {
+		iconStyles.push({ backgroundColor: iconBackground })
 	}
 
 	return (
@@ -24,7 +27,8 @@ const Icon = ({ checkmark, visible }) => {
 
 Icon.propTypes = {
 	checkmark: PropTypes.bool,
-	visible: PropTypes.bool
+	visible: PropTypes.bool,
+	iconBackground: PropTypes.string
 }
 
 const styles = EStyleSheet.create({
@@ -37,7 +41,7 @@ const styles = EStyleSheet.create({
 		justifyContent: 'center'
 	},
 	iconVisible: {
-		backgroundColor: '$blue'
+		backgroundColor: '$themeColor'
 	},
 	iconChecked: {
 		width: 18

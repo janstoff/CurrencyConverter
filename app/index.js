@@ -2,9 +2,11 @@ import React from 'react'
 import { StyleSheet, Text, View, StatusBar } from 'react-native'
 import { Constants } from 'expo'
 import EStyleSheet from 'react-native-extended-stylesheet'
-import { blue } from './assets/colors'
 import Home from './screens/Home'
 import CurrencyList from './screens/CurrencyList'
+import Options from './screens/Options'
+import Themes from './screens/Themes'
+
 
 function CustomStatusBar({ backgroundColor, ...props }) {
 	return (
@@ -19,26 +21,28 @@ export default class App extends React.Component {
 		return (
 			<View style={styles.container}>
 				<CustomStatusBar
-					backgroundColor={blue}
+					backgroundColor={styles.$statusBarColor}
 					barStyle="light-content"
 				/>
-				<CurrencyList />
+				<Themes />
 			</View>
 		)
 	}
 }
 
 EStyleSheet.build({
+	$themeColor: '$primaryBlue',
+	//Theme colors
+	$primaryBlue: '#4F6D7A',
+	$primaryOrange: '#D57A66',
+	$primaryGreen: '#008090',
+	$primaryPurple: '#9E768F',
+	//Functional colors
 	$gray: '#757575',
 	$lightGray: '#ded7d7',
 	$veryLightGray: '#f4eded',
 	$white: '#ffffff',
 	$black: '#000000',
-	$orange: '#f26f28',
-	$lightOrange: '#ffc2a1',
-	$blue: '#4F6D7A',
-	$lightBlue: '#8697b8',
-	$pink: '#b93fb3',
 	$textColor: '#ffffff',
 	$darkText: '#343434',
 
@@ -46,6 +50,7 @@ EStyleSheet.build({
 })
 
 const styles = EStyleSheet.create({
+	$statusBarColor: '$themeColor',
 	container: {
 		flex: 1,
 	}

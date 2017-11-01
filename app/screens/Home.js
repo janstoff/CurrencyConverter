@@ -78,7 +78,7 @@ export default class Home extends Component {
 const styles = EStyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '$blue',
+		backgroundColor: '$themeColor',
 		justifyContent: 'center',
 		alignItems: 'center',
 		left: 0,
