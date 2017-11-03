@@ -1,20 +1,26 @@
 import React, { Component } from 'react'
-import { ScrollView, Platform } from 'react-native'
+import { ScrollView, Platform, Linking } from 'react-native'
 import PropTypes from 'prop-types'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import { Ionicons } from '@expo/vector-icons'
 
 import { ListItem, Separator } from '../components/_SharedComponents'
+import { connectAlert } from '../components/Alert'
 
 const IONICON_PREFIX = Platform.OS === 'ios' ? 'ios' : 'md'
 
 class Options extends Component {
+	static propTypes = {
+		navigation: PropTypes.object,
+		alertWithType: PropTypes.func
+	}
+
 	onThemesPress = () => {
-		console.log('themes pressed')
+		this.props.navigation.navigate('Themes')
 	}
 
 	onSitePress = () => {
-		console.log('site pressed')
+		Linking.openURL('http://fixer.io').catch(() => this.props.alertWithType('error', 'Sorry!', "Fixer.io can't be opened right now"))
 	}
 
 	render() {
@@ -55,4 +61,4 @@ const styles = EStyleSheet.create({
 	container: {}
 })
 
-export default Options
+export default connectAlert(Options)

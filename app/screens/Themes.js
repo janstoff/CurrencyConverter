@@ -6,8 +6,12 @@ import EStyleSheet from 'react-native-extended-stylesheet'
 import { ListItem, Separator } from '../components/_SharedComponents'
 
 class Themes extends Component {
+	static propTypes = {
+		navigation: PropTypes.object
+	}
+
 	onThemePress = (color) => {
-		console.log('theme pressed', color)
+		this.props.navigation.goBack(null)
 	}
 
 	render() {

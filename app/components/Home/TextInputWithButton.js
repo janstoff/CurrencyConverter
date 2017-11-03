@@ -13,16 +13,18 @@ import color from 'color'
 
 class TextInputWithButton extends Component {
 	static propTypes = {
-		onPress: PropTypes.func.isRequired,
-		buttonText: PropTypes.string.isRequired,
-		editable: PropTypes.bool.isRequired
+		onPress: PropTypes.func,
+		buttonText: PropTypes.string,
+		editable: PropTypes.bool,
+		onChange: PropTypes.func,
+		keyboardType: PropTypes.string,
 	}
 	static defaultProps = {
 		editable: true
 	}
 
 	render() {
-		const { onPress, buttonText, editable } = this.props
+		const { onPress, buttonText, editable, onChange, keyboardType } = this.props
 
 		const underlayColor = color(styles.$buttonBGColorBase).darken(
 			styles.$buttonBGColorModifier
@@ -44,8 +46,8 @@ class TextInputWithButton extends Component {
 				<View style={styles.border} />
 				<TextInput
 					style={styles.input}
-					editable={editable} /*or simply {...this.props}*/
 					underlineColorAndroid="transparent"
+					{...this.props}
 				/>
 			</View>
 		)
