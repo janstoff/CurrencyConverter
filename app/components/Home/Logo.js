@@ -1,13 +1,27 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, Image, Dimensions, Keyboard, Animated, Platform } from 'react-native'
+import {
+	StyleSheet,
+	Text,
+	View,
+	Image,
+	Dimensions,
+	Keyboard,
+	Animated,
+	Platform
+} from 'react-native'
 import EStyleSheet from 'react-native-extended-stylesheet'
+import PropTypes from 'prop-types'
 
- const SCREEN_WIDTH = Dimensions.get('window').width
- const imageWidth = SCREEN_WIDTH / 2
+const SCREEN_WIDTH = Dimensions.get('window').width
+const imageWidth = SCREEN_WIDTH / 2
 
- const ANIMATION_DURATION = 250
+const ANIMATION_DURATION = 250
 
 export default class Logo extends Component {
+	static propTypes = {
+		tintColor: PropTypes.string
+	}
+
 	constructor(props) {
 		super(props)
 
@@ -16,11 +30,19 @@ export default class Logo extends Component {
 	}
 
 	componentDidMount() {
-		let showListener = Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow'
-		let hideListener = Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide'
+		let showListener =
+			Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow'
+		let hideListener =
+			Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide'
 
-		this.keyboardShowListener = Keyboard.addListener(showListener, this.onKeyboardShow)
-		this.keyboardHideListener = Keyboard.addListener(hideListener, this.onKeyboardHide)
+		this.keyboardShowListener = Keyboard.addListener(
+			showListener,
+			this.onKeyboardShow
+		)
+		this.keyboardHideListener = Keyboard.addListener(
+			hideListener,
+			this.onKeyboardHide
+		)
 	}
 
 	// IMPORTANT to remove listeners when you no longer need them!!!
@@ -63,7 +85,8 @@ export default class Logo extends Component {
 
 		const animatedLogoInner = [
 			styles.logoInner,
-			{ width: this.logoInnerWidth, height: this.logoInnerWidth}
+			{ width: this.logoInnerWidth, height: this.logoInnerWidth },
+			this.props.tintColor ? { tintColor: this.props.tintColor } : null
 		]
 
 		return (
@@ -87,7 +110,7 @@ export default class Logo extends Component {
 const styles = EStyleSheet.create({
 	$largeLogoOuter: imageWidth,
 	$largeLogoInner: imageWidth / 2,
-	$smallLogoOuter: imageWidth/ 2,
+	$smallLogoOuter: imageWidth / 2,
 	$smallLogoInner: imageWidth / 4,
 	container: {
 		justifyContent: 'center',

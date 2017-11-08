@@ -18,7 +18,9 @@ class TextInputWithButton extends Component {
 		editable: PropTypes.bool,
 		onChange: PropTypes.func,
 		keyboardType: PropTypes.string,
+		textColor: PropTypes.string,
 	}
+
 	static defaultProps = {
 		editable: true
 	}
@@ -35,13 +37,18 @@ class TextInputWithButton extends Component {
 			dynamicContainerStyles.push(styles.containerDisabled)
 		}
 
+		const buttonTextStyles = [styles.buttonText]
+		if (this.props.textColor) {
+			buttonTextStyles.push({ color: this.props.textColor })
+		}
+
 		return (
 			<View style={dynamicContainerStyles}>
 				<TouchableHighlight
 					style={styles.buttonContainer}
 					onPress={onPress}
 					underlayColor={underlayColor}>
-					<Text style={styles.buttonText}>{buttonText}</Text>
+					<Text style={buttonTextStyles}>{buttonText}</Text>
 				</TouchableHighlight>
 				<View style={styles.border} />
 				<TextInput

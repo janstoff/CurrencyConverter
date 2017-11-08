@@ -15,7 +15,12 @@ const TEMP_CURRENT_CURRENCY = 'CAD'
 
 class CurrencyList extends Component {
 	static propTypes = {
-		navigation: PropTypes.object
+		navigation: PropTypes.object,
+		baseCurrency: PropTypes.string,
+		quoteCurrency: PropTypes.string,
+		changeBaseCurrency: PropTypes.func,
+		changeQuoteCurrency: PropTypes.func,
+		primaryColor: PropTypes.string
 	}
 
 	onPress = (currency) => {
@@ -32,6 +37,13 @@ class CurrencyList extends Component {
 	}
 
 	render() {
+		const { navigation, baseCurrency, quoteCurrency } = this.props
+
+		let activeCurrency = baseCurrency
+		if (navigation.state.params.type === 'quote') {
+			activeCurrency = quoteCurrency
+		}
+
 		return (
 			<View style={styles.container}>
 				<FlatList
@@ -39,10 +51,11 @@ class CurrencyList extends Component {
 					renderItem={({ item }) => (
 						<ListItem
 							text={item}
-							selected={item === TEMP_CURRENT_CURRENCY}
+							selected={item === activeCurrency} //i.e. true in case it they are equal
 							onPress={() => this.onPress(item)}
               checkmark={true}
               visible={true}
+							iconBackground={this.props.primaryColor}
 						/>
 					)}
 					keyExtractor={item => item}
@@ -59,9 +72,13 @@ const styles = EStyleSheet.create({
 	}
 })
 
-// const mapStateTopProps = (state) => {
-//
-// }
+const mapStateTopProps = (state) => {
+	return {
+		baseCurrency: state.currencies.baseCurrency,
+		quoteCurrency: state.currencies.quoteCurrency,
+		primaryColor: state.theme.primaryColor
+	}
+}
 
 
-export default connect(null, actions)(CurrencyList)
+export default connect(mapStateTopProps, actions)(CurrencyList)

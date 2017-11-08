@@ -9,6 +9,9 @@ import {
 import { connect } from 'react-redux'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import DismissKeyboard from 'dismissKeyboard'
+
+import Container from '../components/Container/Container'
+import CustomStatusBar from '../components/StatusBar/CustomStatusBar'
 import {
 	Logo,
 	TextInputWithButton,
@@ -29,7 +32,8 @@ class Home extends Component {
 		amount: PropTypes.number,
 		conversionRate: PropTypes.number,
 		isFetching: PropTypes.bool,
-		lastConvertedDate: PropTypes.object
+		lastConvertedDate: PropTypes.object,
+		primaryColor: PropTypes.string
 	}
 
 	onPressBaseCurrency = () => {
@@ -65,7 +69,8 @@ class Home extends Component {
 			amount,
 			conversionRate,
 			isFetching,
-			lastConvertedDate
+			lastConvertedDate,
+			primaryColor
 		} = this.props
 
 		let quotePrice = '...'
@@ -74,37 +79,47 @@ class Home extends Component {
 		}
 
 		return (
-			<TouchableWithoutFeedback onPress={() => DismissKeyboard()}>
-				<View style={styles.container}>
-					<Header onPress={this.onOptionsPress} />
-					<KeyboardAvoidingView behavior="padding">
-						<Logo />
-						<TextInputWithButton
-							buttonText={baseCurrency}
-							onPress={this.onPressBaseCurrency}
-							defaultValue={amount.toString()} //cannot input number to text input
-							keyboardType="numeric"
-							onChangeText={this.onAmountInput}
-						/>
-						<TextInputWithButton
-							buttonText={quoteCurrency}
-							onPress={this.onPressQuoteCurrency}
-							editable={false}
-							value={quotePrice}
-						/>
-						<LastConvertedText
-							base={baseCurrency}
-							date={lastConvertedDate}
-							quote={quoteCurrency}
-							conversionRate={conversionRate}
-						/>
-						<ClearButton
-							text="Reverse Currencies"
-							onPress={this.onCurrencySwap}
-						/>
-					</KeyboardAvoidingView>
-				</View>
-			</TouchableWithoutFeedback>
+			<View style={{ flex: 1 }}>
+				<CustomStatusBar
+					backgroundColor={primaryColor}
+					barStyle="light-content"
+				/>
+				<Container backgroundColor={primaryColor}>
+					<TouchableWithoutFeedback onPress={() => DismissKeyboard()}>
+						<View style={styles.container}>
+							<Header onPress={this.onOptionsPress} />
+							<KeyboardAvoidingView behavior="padding">
+								<Logo tintColor={primaryColor}/>
+								<TextInputWithButton
+									buttonText={baseCurrency}
+									onPress={this.onPressBaseCurrency}
+									defaultValue={amount.toString()} //cannot input number to text input
+									keyboardType="numeric"
+									onChangeText={this.onAmountInput}
+									textColor={primaryColor}
+								/>
+								<TextInputWithButton
+									buttonText={quoteCurrency}
+									onPress={this.onPressQuoteCurrency}
+									editable={false}
+									value={quotePrice}
+									textColor={primaryColor}
+								/>
+								<LastConvertedText
+									base={baseCurrency}
+									date={lastConvertedDate}
+									quote={quoteCurrency}
+									conversionRate={conversionRate}
+								/>
+								<ClearButton
+									text="Reverse Currencies"
+									onPress={this.onCurrencySwap}
+								/>
+							</KeyboardAvoidingView>
+						</View>
+					</TouchableWithoutFeedback>
+				</Container>
+			</View>
 		)
 	}
 }
@@ -112,7 +127,6 @@ class Home extends Component {
 const styles = EStyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '$themeColor',
 		justifyContent: 'center',
 		alignItems: 'center',
 		left: 0,
@@ -138,7 +152,8 @@ const mapStateTopProps = state => {
 		isFetching: conversionSelector.isFetching,
 		lastConvertedDate: conversionSelector.date
 			? new Date(conversionSelector.date)
-			: new Date()
+			: new Date(),
+		primaryColor: state.theme.primaryColor
 	}
 }
 
