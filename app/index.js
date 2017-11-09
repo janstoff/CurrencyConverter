@@ -1,8 +1,9 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import { Provider } from 'react-redux'
+import { Provider, connect } from 'react-redux'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import PropTypes from 'prop-types'
+import { addNavigationHelpers } from 'react-navigation'
 
 import store from './config/store'
 import Navigator from './config/routes'
@@ -12,16 +13,30 @@ import CurrencyList from './screens/CurrencyList'
 import Options from './screens/Options'
 import Themes from './screens/Themes'
 
-class App extends React.Component {
-	static propTypes = {
-		primaryColor: PropTypes.string
-	}
 
+
+const AppNav = ({ dispatch, nav }) => (
+	<Navigator
+			navigation={addNavigationHelpers({
+				dispatch,
+				state: nav
+			})}
+		/>
+)
+
+const mapStateTopProps = state => ({
+	nav: state.nav
+})
+
+const AppWithNavigation = connect(mapStateTopProps)(AppNav)
+
+
+class App extends React.Component {
 	render() {
 		return (
 			<Provider store={store}>
 				<AlertProvider>
-						<Navigator />
+						<AppWithNavigation />
 				</AlertProvider>
 			</Provider>
 		)
@@ -46,9 +61,5 @@ EStyleSheet.build({
 
 	// $outline: 1
 })
-
-const mapStateTopProps = state => {
-	primaryColor: state.theme.primaryColor
-}
 
 export default App
