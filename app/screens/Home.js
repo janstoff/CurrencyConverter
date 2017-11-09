@@ -11,7 +11,6 @@ import EStyleSheet from 'react-native-extended-stylesheet'
 import DismissKeyboard from 'dismissKeyboard'
 
 import Container from '../components/Container/Container'
-import CustomStatusBar from '../components/StatusBar/CustomStatusBar'
 import {
 	Logo,
 	TextInputWithButton,
@@ -34,6 +33,10 @@ class Home extends Component {
 		isFetching: PropTypes.bool,
 		lastConvertedDate: PropTypes.object,
 		primaryColor: PropTypes.string
+	}
+
+	componentWillMount () {
+		this.props.getInitialConversion()
 	}
 
 	onPressBaseCurrency = () => {
@@ -79,11 +82,6 @@ class Home extends Component {
 		}
 
 		return (
-			<View style={{ flex: 1 }}>
-				<CustomStatusBar
-					backgroundColor={primaryColor}
-					barStyle="light-content"
-				/>
 				<Container backgroundColor={primaryColor}>
 					<TouchableWithoutFeedback onPress={() => DismissKeyboard()}>
 						<View style={styles.container}>
@@ -119,7 +117,6 @@ class Home extends Component {
 						</View>
 					</TouchableWithoutFeedback>
 				</Container>
-			</View>
 		)
 	}
 }

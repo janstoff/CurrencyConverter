@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { View } from 'react-native'
 import { Provider, connect } from 'react-redux'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import PropTypes from 'prop-types'
@@ -7,6 +7,7 @@ import { addNavigationHelpers } from 'react-navigation'
 
 import store from './config/store'
 import Navigator from './config/routes'
+import CustomStatusBar from './components/StatusBar/CustomStatusBar'
 import { AlertProvider } from './components/Alert'
 import Home from './screens/Home'
 import CurrencyList from './screens/CurrencyList'
@@ -24,11 +25,11 @@ const AppNav = ({ dispatch, nav }) => (
 		/>
 )
 
-const mapStateTopProps = state => ({
+const mapStateToProps = state => ({
 	nav: state.nav
 })
 
-const AppWithNavigation = connect(mapStateTopProps)(AppNav)
+const AppWithNavigation = connect(mapStateToProps)(AppNav)
 
 
 class App extends React.Component {
@@ -36,7 +37,12 @@ class App extends React.Component {
 		return (
 			<Provider store={store}>
 				<AlertProvider>
+					<View style={{ flex: 1 }}>
+						<CustomStatusBar
+							barStyle="light-content"
+						/>
 						<AppWithNavigation />
+					</View>
 				</AlertProvider>
 			</Provider>
 		)
