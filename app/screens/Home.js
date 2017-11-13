@@ -11,6 +11,7 @@ import EStyleSheet from 'react-native-extended-stylesheet'
 import DismissKeyboard from 'dismissKeyboard'
 
 import Container from '../components/Container/Container'
+import { connectAlert } from '../components/Alert'
 import {
 	Logo,
 	TextInputWithButton,
@@ -32,11 +33,19 @@ class Home extends Component {
 		conversionRate: PropTypes.number,
 		isFetching: PropTypes.bool,
 		lastConvertedDate: PropTypes.object,
-		primaryColor: PropTypes.string
+		primaryColor: PropTypes.string,
+		alertWithType: PropTypes.func,
+		currencyError: PropTypes.string
 	}
 
 	componentWillMount () {
 		this.props.getInitialConversion()
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.currencyError && nextProps.currencyError !== this.props.currencyError) {
+			this.props.alertWithType('error', 'Error', nextProps.currencyError)
+		}
 	}
 
 	onPressBaseCurrency = () => {
@@ -150,8 +159,9 @@ const mapStateTopProps = state => {
 		lastConvertedDate: conversionSelector.date
 			? new Date(conversionSelector.date)
 			: new Date(),
-		primaryColor: state.theme.primaryColor
+		primaryColor: state.theme.primaryColor,
+		currencyError: state.currencies.error
 	}
 }
 
-export default connect(mapStateTopProps, actions)(Home)
+export default connect(mapStateTopProps, actions)(connectAlert(Home))
